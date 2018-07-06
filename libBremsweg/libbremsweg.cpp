@@ -1,7 +1,14 @@
+using namespace std;
 #include "libbremsweg.h"
 
+double Normfallbeschleunigung = 9.80665;
+double Haftreibungszahl = 0.0;
+
+//bremsbeschleunigung,reaktionsweg  und bremszeit in class eingefügt um testcases einfacher zu machen
+
 Bremsweg::Bremsweg()
-:untergrundfaktor(1.0), geschwindigkeit(0.0), fahrzeug("PkW"), bremsweg(0.0), gefahrenbremsung (1)
+:untergrundfaktor(1.0), geschwindigkeit(0.0), bremsweg(0.0), gefahrenbremsung (1),
+ fahrzeug("PkW"),bremsbeschleunigung(0.0), reaktionsweg(0.0), bremszeit(0.0)
 {
 }
 
@@ -32,7 +39,7 @@ void Bremsweg::GefahrenbremsungSetzen(int Gefahrenbremsung)
     }
 }
 
-void Bremsweg::FahrzeugSetzen(std::string neuesFahrzeug)
+void Bremsweg::FahrzeugSetzen(string neuesFahrzeug)
 {
     if (fahrzeug != neuesFahrzeug)
     {
@@ -43,17 +50,36 @@ void Bremsweg::FahrzeugSetzen(std::string neuesFahrzeug)
 
 void Bremsweg::BremswegBerechnen()
 {
+    reaktionsweg = geschwindigkeit/10*3;
+    bremsbeschleunigung = Haftreibungszahl * Normfallbeschleunigung;
+    bremszeit = (geschwindigkeit/3.6)/bremsbeschleunigung;
+
     if (fahrzeug == "PkW")
     {
-        bremsweg = (((geschwindigkeit/10.0)*(geschwindigkeit/10.0))/gefahrenbremsung)*untergrundfaktor;
+        Haftreibungszahl = 0.8;
+        double bremsbeschleunigung = Haftreibungszahl * Normfallbeschleunigung;
+        double bremszeit = (geschwindigkeit/3.6)/bremsbeschleunigung;
+        if (gefahrenbremsung == 2)
+        {
+            bremsweg = int((reaktionsweg+0.5*bremsbeschleunigung*bremszeit*bremszeit)*untergrundfaktor*100.0+0.5)/100.0;
+        }
+        else
+        {
+            bremsweg = int(((reaktionsweg+0.5*bremsbeschleunigung*bremszeit*bremszeit)*untergrundfaktor*1.5)*100.0+0.5)/100.0;
+            //bremsweg = (round(((reaktionsweg+0.5*bremsbeschleunigung*bremszeit*bremszeit)*untergrundfaktor*1.5)*10))/10;
+            //round wird bei mir als 'undeclared identifier' gewertet, deswegen klassisches Casten
+        }
     }
-    else if (fahrzeug == "Kettenfahrzeug")
+    else if (fahrzeug == "Panzer")
     {
-        bremsweg = -2;
+        Haftreibungszahl = 1.51;
+
+        bremsweg = int(((reaktionsweg+0.5*bremsbeschleunigung*bremszeit*bremszeit)*untergrundfaktor*1.5)*100.0+0.5)/100.0;
     }
     else if (fahrzeug == "Zug")
     {
-        bremsweg = -1;
+        Haftreibungszahl = 0.18;
+        bremsweg = int(((reaktionsweg+0.5*bremsbeschleunigung*bremszeit*bremszeit)*untergrundfaktor*1.5)*100.0+0.5)/100.0;
     }
 }
 

@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBoxFahrzeug->addItem("Fahrzeugauswahl");
     ui->comboBoxFahrzeug->addItem("PkW");
     ui->comboBoxFahrzeug->addItem("Zug");
-    ui->comboBoxFahrzeug->addItem("Kettenfahrzeug");
+    ui->comboBoxFahrzeug->addItem("Panzer");
 
     //Combobox Untergrund bevölkern
     ui->comboBoxUntergrund->addItem("Untergrundauswahl");
@@ -54,7 +54,7 @@ void MainWindow::on_pushButtonBremswegberechnen_clicked()
     {
         if (ok == true)
         {
-            if (Geschwindigkeit > 0)
+            if (Geschwindigkeit > 0 && Geschwindigkeit <= 600)
             {
                 this -> bremsweg -> GeschwindigkeitSetzen(Geschwindigkeit);
                 double bremsweg = this ->bremsweg->BremswegAbfragen();
@@ -99,12 +99,11 @@ void MainWindow::on_checkBoxGefahrenbremsung_stateChanged(int Gefahrenbremsung)
 {
     if (Gefahrenbremsung)
     {
-        QMessageBox::information(this, "Achtung", "Die Gefahrenbremsung wurde aktiviert!");
+        QMessageBox::information(this, "Achtung", "Die Gefahrenbremsung wurde aktiviert, wird jedoch nur beim Auto berücksichtigt!");
         this -> bremsweg -> GefahrenbremsungSetzen(2);
     }
     else
     {
-        QMessageBox::information(this, "Achtung", "Die Gefahrenbremsung wurde deaktiviert!");
         this -> bremsweg -> GefahrenbremsungSetzen(1);
     }
 }
@@ -113,6 +112,7 @@ void MainWindow::on_checkBoxGefahrenbremsung_stateChanged(int Gefahrenbremsung)
 void MainWindow::on_comboBoxFahrzeug_currentIndexChanged(const QString &Fahrzeug)
 {
     std::string fahrzeug = "";
+
     if (Fahrzeug == "Zug")
     {
         gueltigesFahrzeug = true;
@@ -123,10 +123,10 @@ void MainWindow::on_comboBoxFahrzeug_currentIndexChanged(const QString &Fahrzeug
         gueltigesFahrzeug = true;
         fahrzeug = "PkW";
     }
-    else if (Fahrzeug == "Kettenfahrzeug")
+    else if (Fahrzeug == "Panzer")
     {
         gueltigesFahrzeug = true;
-        fahrzeug = "Kettenfahrzeug";
+        fahrzeug = "Panzer";
     }
     else
     {
@@ -159,7 +159,7 @@ void MainWindow::on_comboBoxUntergrund_currentIndexChanged(const QString &Unterg
     else if (Untergrund == "verschneit")
     {
         gueltigerUntergrund = true;
-        untergrundfaktor = 3.16;
+        untergrundfaktor = 2.5;
     }
     else
     {

@@ -32,7 +32,7 @@ private:
     const char* ERROR_UNTERGRUND = "Bitte Untergrund auswählen";
     const char* ERROR_FAHRZEUGundUNTERGRUND = "Bitte Fahrzeug und Untergrund auswählen";
     const char* ERROR_GESCHWINDIGKEIT_NUMMER = "Bitte eine Zahl als Geschwindigkeit eingeben";
-    const char* ERROR_GESCHWINDIGKEIT_NEGATIV = "Bitte eine positive Geschwindigkeit eingeben";
+    const char* ERROR_GESCHWINDIGKEIT_NEGATIV = "Bitte eine gültige Geschwindigkeit eingeben (0..600kmh)";
 };
 
 #endif // MAINWINDOW_H

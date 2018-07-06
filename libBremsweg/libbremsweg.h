@@ -11,6 +11,8 @@ public:
     Bremsweg();
     double BremswegAbfragen() const;
     void BremswegBerechnen();
+    std::string fahrzeug;
+    double geschwindigkeit;
 
 public slots:
     void GeschwindigkeitSetzen(double neueGeschwindigkeit);
@@ -23,10 +25,14 @@ signals:
 
 private:
     double untergrundfaktor;
-    double geschwindigkeit;
+    //double geschwindigkeit;
     double bremsweg;
     int gefahrenbremsung;
-    std::string fahrzeug;
+    //std::string fahrzeug;
+    double bremsbeschleunigung;
+    double reaktionsweg;
+    double bremszeit;
+
 };
 
 #endif // LIBBREMSWEG_H
