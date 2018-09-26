@@ -1,4 +1,4 @@
-# Author Philipp Scholtes
+# Author Philipp Scholtes,Niklas Hartz,Tobias Freichel
 # Use:
 # Include(../lib-pin/libpin.pri)
 

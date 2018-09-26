@@ -28,11 +28,15 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Bremsweg* bremsweg = new Bremsweg();
+    /*
+     * Einfuehrung aller möglichen Auftretenden Fehlermehldungen,
+     * bei dem Benutzer darauf hingewiesen wird, alle Angaben zu vervollstaendigen
+    */
     const char* ERROR_FAHRZEUG = "Bitte Fahrzeug auswählen";
     const char* ERROR_UNTERGRUND = "Bitte Untergrund auswählen";
     const char* ERROR_FAHRZEUGundUNTERGRUND = "Bitte Fahrzeug und Untergrund auswählen";
     const char* ERROR_GESCHWINDIGKEIT_NUMMER = "Bitte eine Zahl als Geschwindigkeit eingeben";
-    const char* ERROR_GESCHWINDIGKEIT_NEGATIV = "Bitte eine gültige Geschwindigkeit eingeben (0..600kmh)";
+    const char* ERROR_GESCHWINDIGKEIT_INVALID = "Bitte eine gültige Geschwindigkeit eingeben (0 bis 250kmh)";
 };
 
 #endif // MAINWINDOW_H

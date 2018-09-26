@@ -8,16 +8,10 @@ class Bremsweg : public QObject
     Q_OBJECT
 
 public:
-    Bremsweg();
+    Bremsweg();//wird normal im Programm benutzt
+    Bremsweg(double untergrundfaktor, double geschwindigkeit, int gefahrenbremsung, std::string fahrzeug);//wird für die Test-Cases benutzt
+    double BremswegAbfragen() const;
     void BremswegBerechnen();
-    // Wertübergabe für Test
-    // Idee und erläuterung siehe tst_bremswegtest.cpp
-    double BremswegRueckgabe();
-    double untergrundfaktorRueckgabe();
-    double gefahrenbremsungRueckgabe();
-    double bremsbeschleunigungRueckgabe();
-    double reaktionswegRueckgabe();
-    double bremszeitRueckgabe();
 
 public slots:
     void GeschwindigkeitSetzen(double neueGeschwindigkeit);
@@ -26,7 +20,7 @@ public slots:
     void FahrzeugSetzen (std::string neuesFahrzeug);
 
 signals:
-    void WertGeaendert();
+    void WertGeaendert();//wird emittet wenn ein Wert geändert wurde, durch connect verbunden mit BremswegBerechnen, dadurch wird direkt der neue Bremsweg berechnet intern.
 
 private:
     double untergrundfaktor;
@@ -34,10 +28,6 @@ private:
     double bremsweg;
     int gefahrenbremsung;
     std::string fahrzeug;
-    double bremsbeschleunigung;
-    double reaktionsweg;
-    double bremszeit;
-
 };
 
 #endif // LIBBREMSWEG_H
